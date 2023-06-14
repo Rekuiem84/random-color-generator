@@ -1,0 +1,62 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+html {
+	color-scheme: dark;
+}
+body {
+	font-family: sans-serif;
+}
+.background {
+	min-height: 100dvh;
+	display: grid;
+	place-items: center;
+	background: hsl(0, 0%, 5%);
+	color: #fafafa;
+	font-size: 1.5rem;
+
+	& * {
+		font-size: inherit;
+	}
+	.copy-message {
+		font-size: 0.9em;
+		position: absolute;
+		top: 0rem;
+		background: rgb(38, 38, 38);
+		border-radius: 1rem;
+		padding: 1rem;
+		transition: 0.4s ease-in-out;
+
+		translate: 0 -150%;
+	}
+	.copy-message.visible {
+		top: 1.5rem;
+		translate: 0 0;
+	}
+	& div {
+		background: hsl(0, 0%, 15%);
+		border-radius: 1rem;
+		padding: 1.5rem;
+		width: min(100%, 450px);
+		display: grid;
+		justify-items: center;
+		gap: 0.6em;
+	}
+	.color-code {
+		line-height: 1.4;
+		padding: 0.2em;
+		cursor: pointer;
+		background: hsl(0, 0%, 80%);
+		color: hsl(0, 60%, 10%);
+		border-radius: 6px;
+		font-family: monospace;
+	}
+	.button {
+		padding: 0.3em;
+		border-radius: 10px;
+	}
+}
