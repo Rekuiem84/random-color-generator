@@ -41,12 +41,18 @@ body {
 		background: hsl(0, 0%, 15%);
 		border-radius: 1rem;
 		padding: 1.5rem;
-		width: min(100%, 450px);
+		margin-inline: auto;
+		width: min(90%, 450px);
 		display: grid;
 		justify-items: center;
 		gap: 0.6em;
 	}
+	& p {
+		text-align: center;
+		font-weight: 500;
+	}
 	.color-code {
+		font-weight: 400;
 		line-height: 1.4;
 		padding: 0.2em;
 		cursor: pointer;
@@ -54,9 +60,19 @@ body {
 		color: hsl(0, 60%, 10%);
 		border-radius: 6px;
 		font-family: monospace;
+		box-decoration-break: clone;
+		-webkit-box-decoration-break: clone;
 	}
 	.button {
 		padding: 0.3em;
+		background: hsl(0, 0%, 40%);
+		color: #fafafa;
 		border-radius: 10px;
+		border: none;
+		cursor: pointer;
+
+		&:where(:focus, :hover) {
+			outline: 2px solid hsl(0, 0%, 85%);
+		}
 	}
 }

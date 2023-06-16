@@ -1,19 +1,32 @@
 const background = document.querySelector(".background");
 const generateButton = document.querySelector(".background .button");
 
+// generate random rgb color
 function generateColor() {
-	const color = Math.floor(Math.random() * 16777215).toString(16);
-	return color;
+	const r = Math.floor(Math.random() * 256);
+	const g = Math.floor(Math.random() * 256);
+	const b = Math.floor(Math.random() * 256);
+	const rgbColor = `${r}, ${g}, ${b}`;
+	return rgbColor;
 }
 
-// to do : make the color rgb by default
-// then change the hextoRgb function to rgbtoHex
+function updatePage() {
+	color = generateColor();
+	background.style.backgroundColor = "rgb(" + color + ")";
+	updateCardColorCodes(color);
+}
 
 generateButton.addEventListener("click", () => {
-	color = generateColor();
-	console.log(color);
-	background.style.backgroundColor = "#" + color;
-	updateCardColorCodes(color);
+	updatePage();
+});
+
+window.addEventListener("keydown", (e) => {
+	if (e.code === "Space") {
+		// check if generateButton is NOT focused so that pressing spacebar doesn't trigger the button twice
+		if (document.activeElement !== generateButton) {
+			updatePage();
+		}
+	}
 });
 
 // copy color code on click and display copy message
@@ -34,7 +47,19 @@ colorCodes.forEach((colorCode) => {
 	});
 });
 
-// convert hex to rgb
+// convert rgb "r, g, b" to hex "rrggbb"
+function rgbToHex(rgb) {
+	let color = rgb.split(",");
+	// if the r, g, or b value is less than 16, its hex value will be single digit, so add a 0 in front of the hex value
+	// padStart() adds a 0 in front of the string if the string length is less than 2
+	const r = parseInt(color[0]).toString(16).padStart(2, "0");
+	const g = parseInt(color[1]).toString(16).padStart(2, "0");
+	const b = parseInt(color[2]).toString(16).padStart(2, "0");
+	color = `${r}${g}${b}`;
+	return color;
+}
+
+// convert hex "rrggbb" to rgb "r, g, b" (not needed here)
 function hexToRgb(hex) {
 	const color = hex.split("");
 	const r = parseInt(color[0] + color[1], 16);
@@ -43,11 +68,11 @@ function hexToRgb(hex) {
 	return `${r}, ${g}, ${b}`;
 }
 
-// update color codes
+// update color codes on card
 const HEXCodeElement = document.querySelector("#code-hex");
 const RGBCodeElement = document.querySelector("#code-rgb");
 
 function updateCardColorCodes(color) {
-	HEXCodeElement.innerText = color;
-	RGBCodeElement.innerText = hexToRgb(color);
+	RGBCodeElement.innerText = color;
+	HEXCodeElement.innerText = rgbToHex(color);
 }
